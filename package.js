@@ -2,7 +2,7 @@ Package.describe({
   name: 'miguelalarcos:modal',
   version: '0.1.0',
   summary: 'A modal package for Meteor.',
-  git: '',
+  git: 'https://github.com/miguelalarcos/modal.git',
   documentation: 'README.md'
 });
 
