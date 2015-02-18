@@ -18,3 +18,9 @@ Template.modal.helpers
   modalShow: -> modal.modalShow.get()
   template: -> modal.template.get()
   data: -> modal.data.get()
+
+Template.modal.events
+  'click .cancel': (e,t) ->
+    modal.close()
+  'click .ok': (e,t) ->
+    modal.close()
