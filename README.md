@@ -10,33 +10,21 @@ You use the package this way:
 
 ```coffee
     ...
-    onOk = (text) ->xCalendar.update(_id, {text: text, status: 'pending'})
+    onOk = (dct) ->xCalendar.update(_id, {text: dct.text, status: 'pending'})
     onCancel = -> xCalendar.remove _id
-    modal.render('modalInsertEvent', event, onOk, onCancel)
+    modal.show('modalInsertEvent', event, onOk, onCancel)
 ```
 
-where ```modal.render``` is ```modal.render = (template, data, onOkCallback, onCancelCallback) -> ...```
-
-```coffee
-Template.modalInsertEvent.events
-  'click .ok': (e,t)->
-    val = $(t.find('textarea')).val()
-    modal.onOkCallback(val)
-    modal.close()
-  'click .cancel': (e,t)->
-    modal.onCancelCallback()
-    modal.close()
-```
+where ```modal.show``` is ```modal.show = (template, data, onOkCallback, onCancelCallback) -> ...```
 
 and the template:
 
 ```html
 <template name="modalInsertEvent">
-    <div style="border: 2px solid seagreen; width: 500px;">
+    <div id="modalInsertEventId" style="border: 2px solid seagreen; width: 500px;">
         <h3>You are going to give an appointment for {{this.patient.nhc}}</h3>
-        <div class="ui input">
-            text: <textarea type="text" rows="5" cols="50">{{this.text}}</textarea>
-        </div>
+        <p><b>Text:</b></p>
+        <textarea type="text" rows="5" cols="50" name='text'>{{this.text}}</textarea>
         <div>
             <div class="ui black cancel button">
                 cancel
@@ -49,3 +37,5 @@ and the template:
     </div>
 </template>
 ```
+
+The ok callback is passed a dictionary with the name attribute and its value of every input and textarea of the template.

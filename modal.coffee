@@ -21,6 +21,19 @@ Template.modal.helpers
 
 Template.modal.events
   'click .cancel': (e,t) ->
+    if modal.onCancelCallback
+      modal.onCancelCallback()
     modal.close()
   'click .ok': (e,t) ->
+    dct = {}
+    for el in t.findAll('textarea')
+      name = $(el).attr('name')
+      value = $(el).val()
+      dct[name] = value
+    for el in t.findAll('input')
+      name = $(el).attr('name')
+      value = $(el).val()
+      dct[name] = value
+    if modal.onOkCallback
+      modal.onOkCallback(dct)
     modal.close()
