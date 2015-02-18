@@ -7,7 +7,7 @@ modal.data = new ReactiveVar(null)
 modal.close = ->
   modal.modalShow.set ''
 
-modal.render = (template, data, onOkCallback, onCancelCallback) ->
+modal.show = (template, data, onOkCallback, onCancelCallback) ->
   modal.onOkCallback = onOkCallback
   modal.onCancelCallback = onCancelCallback
   modal.modalShow.set 'show'
