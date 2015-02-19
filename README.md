@@ -20,11 +20,13 @@ where ```modal.show``` is ```modal.show = (template, data, onOkCallback, onCance
 and the template:
 
 ```html
-<template name="modalInsertEvent">
-    <div id="modalInsertEventId" style="border: 2px solid seagreen; width: 500px;">
-        <h3>You are going to give an appointment for {{this.patient.nhc}}</h3>
-        <p><b>Text:</b></p>
-        <textarea type="text" rows="5" cols="50" name='text'>{{this.text}}</textarea>
+<template name="modalUpdateEvent">
+    <div style="border: 2px solid seagreen; width: 500px;">
+        <h3>You are going to edit the appointment for {{this.patient.nhc}} and date {{formatDateTime this.date}}</h3>
+        {{#autoForm doc=this schema='modalSchema' id="modalUpdateForm" type="insert"}}
+            <b>Text:</b>
+            {{> afFieldInput name='text' rows="5" cols="50"}}
+        {{/autoForm}}
         <div>
             <div class="ui black cancel button">
                 cancel
@@ -38,4 +40,17 @@ and the template:
 </template>
 ```
 
-The ok callback is passed a dictionary with the name attribute and its value of every input and textarea of the template.
+The ok callback is passed an object result of the next code:
+
+```coffee
+  'click .ok': (e,t) ->
+    if modal.onOkCallback
+      formId = $(t.find('form')).attr('id')
+      if formId
+        dct = AutoForm.getFormValues(formId)
+        modal.onOkCallback(dct.insertDoc)
+        AutoForm.resetForm(formId)
+      else
+        modal.onOkCallback()
+    modal.close()
+```
