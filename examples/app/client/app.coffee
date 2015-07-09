@@ -3,13 +3,19 @@ class A extends sb.Model
     x:
       type: sb.Integer
 
-ok = (x) -> console.log x.x
-cancel = -> console.log 'cancel'
+class B extends sb.Model
+  @schema:
+    title:
+      type: String
+  ok: ->
+    model = new A(x:8)
+    ok = -> console.log model.x
+    cancel = -> console.log 'cancel'
+    modal.show('modal2', model, ok, cancel)
 
 Meteor.startup ->
-  modal.show('modal2', new A {}, ok, cancel)
+  modal.show('modal2', new A {})
   modal.close()
 
-Template.body.events
-  'click button': (e,t)->
-    modal.show('modal2', new A(x:12), ok, cancel)
+Template.body.helpers
+  myModel: -> new B(title: 'insert coin')

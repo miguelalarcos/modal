@@ -1,7 +1,12 @@
 <body>
-    <button>modal</button>
+    {{> sbT template='demo' model=myModel }}
     {{> modal }}
 </body>
+
+<template name="demo">
+    <input sb sb-bind="title">
+    <button sb sb-click="ok">ok</button>
+</template>
 
 <template name="modal2">
     <div style="border: 2px solid seagreen; width: 500px;">

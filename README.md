@@ -8,25 +8,21 @@ Explanation
 
 It's intended to be used with the package ```miguelalarcos:simple-binding```. You use the package this way:
 
-```coffee
-    class A extends sb.Model
-      @schema:
-        x:
-          type: sb.Integer
-    onOk = (model) -> console.log model.x
-    onCancel = -> console.log 'cancel'
-    modal.show('modalInsertEvent', new A(x:8), onOk, onCancel)
-```
-
-where ```modal.show``` is ```modal.show = (template, model, onOkCallback, onCancelCallback) -> ...```
-
-and the template:
-
 ```html
-<template name="modalUpdateEvent">
+<body>
+    {{> sbT template='demo' model=myModel }}
+    {{> modal }}
+</body>
+
+<template name="demo">
+    <input sb sb-bind="title">
+    <button sb sb-click="ok">ok</button>
+</template>
+
+<template name="modal2">
     <div style="border: 2px solid seagreen; width: 500px;">
-        <h3 sb sb-text="title"></h3>
-        <input sb sb-bind="surname">
+        <input sb sb-bind="x">
+        <div sb sb-text="x"></div>
         <div>
             <div class="ui black cancel button">
                 cancel
@@ -40,7 +36,31 @@ and the template:
 </template>
 ```
 
-The ok callback is passed the model.
+```coffee
+class A extends sb.Model
+  @schema:
+    x:
+      type: sb.Integer
+
+class B extends sb.Model
+  @schema:
+    title:
+      type: String
+  ok: ->
+    model = new A(x:8)
+    ok = -> console.log model.x
+    cancel = -> console.log 'cancel'
+    modal.show('modal2', model, ok, cancel)
+
+Meteor.startup ->
+  modal.show('modal2', new A {})
+  modal.close()
+
+Template.body.helpers
+  myModel: -> new B(title: 'insert coin')
+```  
+
+where ```modal.show``` is ```modal.show = (template, model, onOkCallback, onCancelCallback) -> ...```
 
 Issues
 ------
@@ -49,6 +69,6 @@ Currently, the first time the modal is shown, the model is not binding to the vi
 
 ```coffee
 Meteor.startup ->
-  modal.show('modal2', new A {}, ok, cancel)
+  modal.show('modal2', new A {})
   modal.close()
 ```
