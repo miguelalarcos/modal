@@ -6,10 +6,13 @@ A modal package for Meteor.
 Explanation
 -----------
 
-You use the package this way:
+It's intended to be used with the package ```miguelalarcos:simple-binding```. You use the package this way:
 
 ```coffee
-    ...
+    class A extends sb.Model
+      @schema:
+        x:
+          type: sb.Integer
     onOk = (model) -> console.log model.x
     onCancel = -> console.log 'cancel'
     modal.show('modalInsertEvent', new A(x:8), onOk, onCancel)
@@ -37,11 +40,15 @@ and the template:
 </template>
 ```
 
-The ok callback is passed an object result of the next code:
+The ok callback is passed the model.
+
+Issues
+------
+
+Currently, the first time the modal is shown, the model is not binding to the view. The solution at this time is to add the next code:
 
 ```coffee
-  'click .ok': (e,t) ->
-    if modal.onOkCallback
-      modal.onOkCallback(this.model)
-    modal.close()
+Meteor.startup ->
+  modal.show('modal2', new A {}, ok, cancel)
+  modal.close()
 ```

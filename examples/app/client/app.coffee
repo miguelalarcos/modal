@@ -5,8 +5,10 @@ class A extends sb.Model
 
 ok = (x) -> console.log x.x
 cancel = -> console.log 'cancel'
-modal.show('modal2', new A {}, ok, cancel)
-modal.close()
+
+Meteor.startup ->
+  modal.show('modal2', new A {}, ok, cancel)
+  modal.close()
 
 Template.body.events
   'click button': (e,t)->
