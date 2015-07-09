@@ -1,0 +1,20 @@
+<body>
+    <button>modal</button>
+    {{> modal }}
+</body>
+
+<template name="modal2">
+    <div style="border: 2px solid seagreen; width: 500px;">
+        <input sb sb-bind="x">
+        <div sb sb-text="x"></div>
+        <div>
+            <div class="ui black cancel button">
+                cancel
+            </div>
+            <div class="ui positive right labeled icon button ok">
+                ok
+                <i class="checkmark icon"></i>
+            </div>
+        </div>
+    </div>
+</template>

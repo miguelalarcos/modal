@@ -26,11 +26,5 @@ Template.modal.events
     modal.close()
   'click .ok': (e,t) ->
     if modal.onOkCallback
-      formId = $(t.find('form')).attr('id')
-      if formId
-        dct = AutoForm.getFormValues(formId)
-        modal.onOkCallback(dct.insertDoc)
-        AutoForm.resetForm(formId)
-      else
-        modal.onOkCallback()
+      modal.onOkCallback(this.model)
     modal.close()
