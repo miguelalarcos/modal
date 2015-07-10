@@ -21,10 +21,8 @@ Template.modal.helpers
 
 Template.modal.events
   'click .cancel': (e,t) ->
-    if modal.onCancelCallback
-      modal.onCancelCallback()
+    modal.onCancelCallback?()
     modal.close()
   'click .ok': (e,t) ->
-    if modal.onOkCallback
-      modal.onOkCallback(this.model)
+    modal.onOkCallback?()
     modal.close()
