@@ -13,9 +13,5 @@ class B extends sb.Model
     cancel = -> console.log 'cancel'
     modal.show('modal2', model, ok, cancel)
 
-Meteor.startup ->
-  modal.show('modal2', new A {})
-  modal.close()
-
 Template.body.helpers
   myModel: -> new B(title: 'insert coin')

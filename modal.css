@@ -1,5 +1,5 @@
 .xmodal {
-    display: none;
+    /*display: none;*/
     position:absolute;
     top: 0px;
     left: 0px;
@@ -8,10 +8,10 @@
     background-color: rgba(0,0,255,0.5);
 }
 
-.xmodal.show{
+/*.xmodal.show{
     display: block;
 }
-
+*/
 .xmodal .center {
     position: absolute;
     top: 50%;

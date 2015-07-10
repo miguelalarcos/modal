@@ -52,23 +52,9 @@ class B extends sb.Model
     cancel = -> console.log 'cancel'
     modal.show('modal2', model, ok, cancel)
 
-Meteor.startup ->
-  modal.show('modal2', new A {})
-  modal.close()
-
 Template.body.helpers
   myModel: -> new B(title: 'insert coin')
 ```  
 
 where ```modal.show``` is ```modal.show = (template, model, onOkCallback, onCancelCallback) -> ...```
 
-Issues
-------
-
-Currently, the first time the modal is shown, the model is not binding to the view. The solution at this time is to add the next code:
-
-```coffee
-Meteor.startup ->
-  modal.show('modal2', new A {})
-  modal.close()
-```
