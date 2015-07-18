@@ -2,7 +2,11 @@
     {{#if modalShow}}
         <div class="xmodal">
             <div class="center">
-                {{> sbT template=template model=data}}
+                {{#if data}}
+                    {{> sbT template=template model=data}}
+                {{else}}
+                    {{> Template.dynamic template=template}}
+                {{/if}}
             </div>
         </div>
     {{/if}}
